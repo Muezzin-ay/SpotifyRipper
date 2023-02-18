@@ -1,7 +1,10 @@
+
 import urllib.request
 from mutagen.id3 import ID3, APIC, error
 from mutagen.mp3 import MP3
 import re
+import os
+
 
 class SpotifyCoverLoader():
     def __init__(self, album_url) -> None:
@@ -31,5 +34,9 @@ class SpotifyCoverLoader():
         picture_data = open(picture_file,'rb').read()
         audio.tags.add(APIC(mime='image/png', type=3, desc=u'Cover', data=picture_data))
         audio.save(audio_file)
+        self.delete_cover(picture_file)
+
+    def delete_cover(self, picture_file) :
+        os.remove(picture_file)
         
         
