@@ -25,7 +25,7 @@ def main() :
     sp_api = SpotifyApi(settings['api_client'], settings['api_secret'])
 
     album_creator = settings['spotify_username']
-    album_id = "0jZnctaVSmdfqtwdGGmhDO"
+    album_id = "3fuFrAI54IarzysyTPz9bj"
     sp_api.get_songs_from_playlist(album_creator, album_id)
 
     song_object_list = sp_api.format_output()
