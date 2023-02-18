@@ -13,6 +13,8 @@ def main() :
     urls = yt.search_song(song_object_list[0])
     print(urls)
 
+    yt.download(urls[0])
+
 
 
 
