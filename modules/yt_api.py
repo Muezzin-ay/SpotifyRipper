@@ -5,10 +5,12 @@ import yt_dlp
 from modules.web_scratch import WebScratch
 
 
+OUTPUT_LOCATION = './out/'
+
 class YoutubeApi(yt_dlp.YoutubeDL) :
     def __init__(self) -> None:
         ydl_ops = {
-            #'outtmpl':  f'/{TEMP_DIR}/{video_title}.mp4',
+            'outtmpl': OUTPUT_LOCATION + '/%(title)s.%(ext)s',
             'format': 'bestaudio/best',
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
