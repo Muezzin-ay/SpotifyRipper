@@ -1,10 +1,8 @@
 
-import re
+import urllib
 
 
 def clean_name(name) :
-    specials = {'`','~','!','@','#','$','%','^','&','*','(',')','_','-','+','=','{','[','}','}','|','\\',':',';','"',"'",'<',',','>','.','?','/','’'}
-
     new_name = name\
         .replace(" ", "+")\
         .replace("ë", "e")\
@@ -12,8 +10,6 @@ def clean_name(name) :
         .replace("ü", "ue")\
         .replace("ö", "oe")
         
-    
-    for char in specials :
-        new_name.replace(char, "")
+    new_name = urllib.parse.quote_plus(new_name)
 
     return new_name
