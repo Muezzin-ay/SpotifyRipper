@@ -6,7 +6,8 @@ from modules.song import Song
 
 def main() :
     sp_api = SpotifyApi()
-    sp_api.log_into_spotify_api()
+    sp_api.get_songs_from_playlist("OfficerAlex","0Fm8D19xbDnZlVXro7UzLC")
+    song_object_list = sp_api.format_output()
 
 
 
