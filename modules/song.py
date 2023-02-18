@@ -21,6 +21,6 @@ class Song():
     def check_duration(self, yt_duration) :
         #offset = abs(self.duration / yt_duration) #0.95 -> with Percentage
         offset = abs(self.duration - yt_duration) # with Seconds
-        if offset < 5 : #5 seconds difference
+        if offset < 3 : #3 seconds difference
             return True
         return False
