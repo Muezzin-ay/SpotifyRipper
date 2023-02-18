@@ -14,4 +14,10 @@ class Song():
     
     def __repr__(self) -> str:
         return self.get_search_word()
-        
+    
+    def check_duration(self, yt_duration) :
+        #offset = abs(self.duration / yt_duration) #0.95
+        offset = abs(self.duration - yt_duration)
+        if offset < 5 : #5 seconds difference
+            return True
+        return False

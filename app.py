@@ -10,10 +10,8 @@ def main() :
     song_object_list = sp_api.format_output()
 
     yt = YoutubeApi()
-    urls = yt.search_song(song_object_list[0])
-    print(urls)
-
-    yt.download(urls[0])
+    url = yt.search_song(song_object_list[0])
+    yt.download(url)
 
 
 

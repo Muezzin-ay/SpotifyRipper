@@ -25,15 +25,38 @@ class YoutubeApi(yt_dlp.YoutubeDL) :
     def search_song(self, song) :
         search_word = song.get_search_word()
         search_url = f'https://www.youtube.com/results?search_query={search_word}'
+
+        video_urls = []
         try :
             html = urllib.request.urlopen(search_url)
             html_source = html.read().decode()
             video_urls = self.scratch.gen_video_urls(html_source)
-
-            return video_urls
-        
         except UnicodeEncodeError as err:
             return err
+        
+        return self.choose_url(video_urls, song)
+        
+    def choose_url(self, urls, song) :
+        try :
+            video_counter = 0
+            for url in urls :
+                video_counter += 1
+
+                html = urllib.request.urlopen(url)
+                html_source = html.read().decode()
+                duration = self.scratch.extract_duration(html_source)
+
+                if not duration : #if duration == None
+                    continue
+
+                if song.check_duration(duration) :
+                    print(f"[YOUTUBE-API] Using video number {video_counter}.")
+                    return url
+
+        except Exception as err:
+            print(err)
+
+        return urls[0]
         
     def download(self, urls) :
         super().download([urls])
