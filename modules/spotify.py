@@ -1,6 +1,7 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import pandas as pd
+from modules.song import Song
 
 class SpotifyApi():
     def __init__(self) -> None:
@@ -36,9 +37,14 @@ class SpotifyApi():
     def format_output(self):
         print("in it")
         youtube_search_strings = []
+        song_objects = []
         for counter in range(len(self.playlist_df)):
             artist_name = self.playlist_df["artist"][counter]
             song_name = self.playlist_df["track_name"][counter]
+            song_duration = self.playlist_df["duration_ms"][counter]/1000
             youtube_search_strings.append(f'{artist_name} {song_name}')
-        print(youtube_search_strings)
+
+            song_objects.append(Song(artist_name,song_name,song_duration))
+
+        return song_objects
     
