@@ -33,17 +33,19 @@ class SpotifyApi():
                 track_df = pd.DataFrame(playlist_features, index=[0])
                 playlist_df = pd.concat([playlist_df, track_df], ignore_index=True)
             self.playlist_df = playlist_df
-            
+
     def format_output(self):
         youtube_search_strings = []
         song_objects = []
         for counter in range(len(self.playlist_df)):
             artist_name = self.playlist_df["artist"][counter]
             song_name = self.playlist_df["track_name"][counter]
+            album_url= f'https://open.spotify.com/track/{self.playlist_df["track_id"][counter]}'
             song_duration = int(self.playlist_df["duration_ms"][counter]/1000)
             youtube_search_strings.append(f'{artist_name} {song_name}')
 
-            song_objects.append(Song(artist_name,song_name,song_duration))
+            song_objects.append(Song(artist_name,song_name,song_duration,album_url))
 
         return song_objects
+
     

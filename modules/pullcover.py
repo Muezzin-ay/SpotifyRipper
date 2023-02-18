@@ -4,10 +4,7 @@ from mutagen.mp3 import MP3
 import re
 
 class SpotifyCoverLoader():
-    def __init__(self) -> None:
-        pass
-
-    def get_thumb_url(self,album_url):
+    def __init__(self, album_url) -> None:
         pattern = r'loading="eager" src="([^ ]*)"'
 
         #do not know why, but it works; finds thumbnail url using regex

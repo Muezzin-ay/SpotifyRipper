@@ -3,7 +3,7 @@ from modules.str_tools import clean_name
 
 
 class Song():
-    def __init__(self, name, artist, duration, album_url) :
+    def __init__(self, name, artist, duration,album_url) :
         self.name = name
         self.artist = artist
         self.duration = duration
