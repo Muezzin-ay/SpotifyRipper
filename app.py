@@ -1,11 +1,10 @@
 
 import json
 import os
-import sys
 
 from modules.spotify import SpotifyApi
 from modules.yt_api import YoutubeApi
-
+from modules.pullcover import SpotifyCoverLoader
 
 def check_settings_file() :
     if not os.path.isfile('./config.json') :
@@ -31,6 +30,8 @@ def main() :
 
     song_object_list = sp_api.format_output()
 
+
+
     yt = YoutubeApi()
     scratched_urls = []
 
@@ -45,5 +46,5 @@ def main() :
 if __name__ == '__main__' :
     if not check_settings_file() :
         print("Please add your Login data!")
-        sys.exit()
+        exit()
     main()
