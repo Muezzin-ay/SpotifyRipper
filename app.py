@@ -32,7 +32,7 @@ def main() :
 
     yt = YoutubeApi()
 
-    for song in song_object_list[:1] :
+    for song in song_object_list : #[:3]
         url = yt.search_song(song)
         file_name = song.name.replace(' ', '_')
 
