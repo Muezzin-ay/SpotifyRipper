@@ -40,7 +40,7 @@ class SpotifyApi():
         for counter in range(len(self.playlist_df)):
             artist_name = self.playlist_df["artist"][counter]
             song_name = self.playlist_df["track_name"][counter]
-            song_duration = self.playlist_df["duration_ms"][counter]/1000
+            song_duration = int(self.playlist_df["duration_ms"][counter]/1000)
             youtube_search_strings.append(f'{artist_name} {song_name}')
 
             song_objects.append(Song(artist_name,song_name,song_duration))
