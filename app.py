@@ -42,7 +42,7 @@ def main() :
 
 
 if __name__ == '__main__' :
-    if check_settings_file() :
+    if not check_settings_file() :
         print("Please add your Login data!")
         exit()
     main()
