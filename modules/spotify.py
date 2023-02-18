@@ -35,7 +35,6 @@ class SpotifyApi():
             self.playlist_df = playlist_df
 
     def format_output(self):
-        print("in it")
         youtube_search_strings = []
         song_objects = []
         for counter in range(len(self.playlist_df)):
