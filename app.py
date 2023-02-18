@@ -9,6 +9,8 @@ def main() :
     sp_api.get_songs_from_playlist("OfficerAlex","0Fm8D19xbDnZlVXro7UzLC")
     song_object_list = sp_api.format_output()
 
+    print(song_object_list)
+
 
 
 

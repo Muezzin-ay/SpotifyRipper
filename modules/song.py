@@ -11,4 +11,7 @@ class Song():
         searchable_artist = self.artist.replace(" ", "+")
         search_name = f'{searchable_name}+{searchable_artist}'
         return search_name
+    
+    def __repr__(self) -> str:
+        return self.get_search_word()
         

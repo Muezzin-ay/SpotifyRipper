@@ -2,4 +2,8 @@
 /env/
 /env
 /*mp4
+/*mp3
 /modules/__pycache__
+/.cache
+/modules/*.mp4
+/modules/*.mp3
