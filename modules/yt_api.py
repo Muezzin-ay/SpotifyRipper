@@ -28,6 +28,7 @@ class YoutubeApi(yt_dlp.YoutubeDL) :
 
         video_urls = []
         try :
+            print(search_url)
             html = urllib.request.urlopen(search_url)
             html_source = html.read().decode()
             video_urls = self.scratch.gen_video_urls(html_source)
@@ -50,7 +51,7 @@ class YoutubeApi(yt_dlp.YoutubeDL) :
                     continue
 
                 if song.check_duration(duration) :
-                    print(f"[YOUTUBE-API] Using video number {video_counter}.")
+                    print(f"[YOUTUBE-API] Using video number {video_counter} ({url}).")
                     return url
 
         except Exception as err:
@@ -59,4 +60,4 @@ class YoutubeApi(yt_dlp.YoutubeDL) :
         return urls[0]
         
     def download(self, urls) :
-        super().download([urls])
+        super().download(urls)

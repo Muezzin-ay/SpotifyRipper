@@ -3,7 +3,6 @@ import re
 
 
 URL_PATTERN = r"watch\?v=(\S{11})"
-
 DURATION_PATTERN = r'<meta itemprop="duration" content="PT(\d+)M(\d+)S">'
 
 
@@ -29,3 +28,5 @@ class WebScratch :
             return None
         duration = int(duration_data[0]) * 60 + int(duration_data[1])
         return duration
+    
+    

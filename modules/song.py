@@ -1,4 +1,6 @@
 
+from modules.str_tools import clean_name
+
 
 class Song():
     def __init__(self, name, artist, duration) :
@@ -7,8 +9,8 @@ class Song():
         self.duration = duration
 
     def get_search_word(self) :
-        searchable_name = self.name.replace(" ", "+")
-        searchable_artist = self.artist.replace(" ", "+")
+        searchable_name = clean_name(self.name)
+        searchable_artist = clean_name(self.artist)
         search_name = f'{searchable_name}+{searchable_artist}'
         return search_name
     
@@ -16,8 +18,8 @@ class Song():
         return self.get_search_word()
     
     def check_duration(self, yt_duration) :
-        #offset = abs(self.duration / yt_duration) #0.95
-        offset = abs(self.duration - yt_duration)
+        #offset = abs(self.duration / yt_duration) #0.95 -> with Percentage
+        offset = abs(self.duration - yt_duration) # with Seconds
         if offset < 5 : #5 seconds difference
             return True
         return False
