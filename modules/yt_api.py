@@ -7,19 +7,8 @@ from modules.web_scratch import WebScratch
 
 OUTPUT_LOCATION = './out/'
 
-class YoutubeApi(yt_dlp.YoutubeDL) :
-    def __init__(self) -> None:
-        ydl_ops = {
-            'outtmpl': OUTPUT_LOCATION + '/%(title)s.%(ext)s',
-            'format': 'bestaudio/best',
-            'postprocessors': [{
-                'key': 'FFmpegExtractAudio',
-                'preferredcodec': 'mp3',
-                'preferredquality': '320',
-            }],
-        }
-        super().__init__(ydl_ops)
-
+class YoutubeApi() :
+    def __init__(self) :
         self.scratch = WebScratch()
 
     def search_song(self, song) :
@@ -59,5 +48,15 @@ class YoutubeApi(yt_dlp.YoutubeDL) :
 
         return urls[0]
         
-    def download(self, urls) :
-        super().download(urls)
+    def download(self, urls, name) :
+        ydl_ops = {
+            'outtmpl': OUTPUT_LOCATION + name,
+            'format': 'bestaudio/best',
+            'postprocessors': [{
+                'key': 'FFmpegExtractAudio',
+                'preferredcodec': 'mp3',
+                'preferredquality': '320',
+            }],
+        }
+        dlp = yt_dlp.YoutubeDL(ydl_ops)
+        dlp.download(urls)
