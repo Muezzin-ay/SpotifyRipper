@@ -3,6 +3,8 @@ import re
 
 
 def clean_name(name) :
+    specials = {'`','~','!','@','#','$','%','^','&','*','(',')','_','-','+','=','{','[','}','}','|','\\',':',';','"',"'",'<',',','>','.','?','/','’'}
+
     new_name = name\
         .replace(" ", "+")\
         .replace("ë", "e")\
@@ -10,5 +12,8 @@ def clean_name(name) :
         .replace("ü", "ue")\
         .replace("ö", "oe")
         
-    re.sub('[^A-Za-z0-9]+', '', new_name) 
+    
+    for char in specials :
+        new_name.replace(char, "")
+
     return new_name
