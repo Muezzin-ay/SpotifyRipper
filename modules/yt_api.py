@@ -1,11 +1,11 @@
-from song import Song
-from web_scratch import WebScratch
 
 import urllib.request
-import youtube_dl
+import yt_dlp
+
+from modules.web_scratch import WebScratch
 
 
-class YoutubeApi(youtube_dl.YoutubeDL) :
+class YoutubeApi(yt_dlp.YoutubeDL) :
     def __init__(self) -> None:
         ydl_ops = {
             #'outtmpl':  f'/{TEMP_DIR}/{video_title}.mp4',
@@ -29,14 +29,4 @@ class YoutubeApi(youtube_dl.YoutubeDL) :
             return err
         
     def download(self, urls) :
-        super().download([urls[0]])
-        
-
-
-if __name__ == '__main__' : 
-    yt = YoutubeApi()
-    song = Song("come2gether", "ooyy", 5000)
-
-    urls = yt.search_song(song)
-    print(urls)
-    yt.download(urls[0])
+        super().download([urls])

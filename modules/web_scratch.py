@@ -1,3 +1,4 @@
+
 import re
 
 
@@ -18,5 +19,3 @@ class WebScratch :
             return video_urls
         except :
             return None
-
-    
