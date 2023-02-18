@@ -41,7 +41,7 @@ def main() :
 
         scl = SpotifyCoverLoader(song.album_url)
         scl.download_cover()
-        scl.merge_cover(file_name)
+        scl.merge_cover(file_name,song.artist)
 
 
 if __name__ == '__main__' :

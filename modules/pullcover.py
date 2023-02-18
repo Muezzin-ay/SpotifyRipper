@@ -2,6 +2,7 @@
 import urllib.request
 from mutagen.id3 import ID3, APIC, error
 from mutagen.mp3 import MP3
+from mutagen.easyid3 import EasyID3
 import re
 import os
 
@@ -22,7 +23,7 @@ class SpotifyCoverLoader():
         print(self.thumbnail_url)
         urllib.request.urlretrieve(self.thumbnail_url, "./out/albumcover.jpg")
 
-    def merge_cover(self, file_name):
+    def merge_cover(self, file_name,artist):
         audio_file = f"./out/{file_name}.mp3"
         picture_file = "./out/albumcover.jpg"
 
@@ -35,6 +36,11 @@ class SpotifyCoverLoader():
         picture_data = open(picture_file,'rb').read()
         audio.tags.add(APIC(mime='image/png', type=3, desc=u'Cover', data=picture_data))
         audio.save(audio_file)
+
+        audio2 = EasyID3(audio_file)
+        audio2['artist'] = artist
+        audio2.save()
+        
         self.delete_cover(picture_file)
 
     def delete_cover(self, picture_file) :
