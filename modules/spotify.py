@@ -4,9 +4,9 @@ import pandas as pd
 from modules.song import Song
 
 class SpotifyApi():
-    def __init__(self) -> None:
-        self.client_id = 'cca7c68ca72e45639fe08e29cadcb7ed'
-        self.secret_id = 'b3870732e7fd4ecbae544d23db5dd5d1'
+    def __init__(self, client_id, secret_id) -> None:
+        self.client_id = client_id
+        self.secret_id = secret_id
 
         self.playlist_attributes_list = ["artist", "album", "track_name", "track_id", "danceability", "energy", "key", "loudness",
                               "mode", "speechiness", "instrumentalness", "liveness", "valence", "tempo", "duration_ms",
