@@ -5,6 +5,7 @@ from mutagen.mp3 import MP3
 from mutagen.easyid3 import EasyID3
 import re
 import os
+from modules.str_tools import clean_name
 
 
 class SpotifyCoverLoader():
@@ -24,7 +25,13 @@ class SpotifyCoverLoader():
         urllib.request.urlretrieve(self.thumbnail_url, "./out/albumcover.jpg")
 
     def merge_cover(self, file_name,artist):
-        audio_file = f"./out/{file_name}.mp3"
+        if ':' in file_name:
+            filename = file_name.replace(':','#')
+        elif '(' or ')' in file_name:
+            filename = file_name
+        else:
+            filename = clean_name(file_name)
+        audio_file = f"./out/{filename}.mp3"
         picture_file = "./out/albumcover.jpg"
 
         audio = MP3(audio_file, ID3=ID3)
