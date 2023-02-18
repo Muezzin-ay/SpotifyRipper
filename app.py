@@ -29,28 +29,18 @@ def main() :
     sp_api.get_songs_from_playlist(album_creator, album_id)
 
     song_object_list = sp_api.format_output()
-    
-
-
 
     yt = YoutubeApi()
-    scratched_urls = []
-
-
 
     for song in song_object_list[:1] :
+        url = yt.search_song(song)
+        file_name = song.name.replace(' ', '_')
+
+        yt.download([url], file_name)
+
         scl = SpotifyCoverLoader(song.album_url)
         scl.download_cover()
-        
-
-
-        url = yt.search_song(song)
-        scratched_urls.append(url)
-
-    print(scratched_urls)
-    #yt.download(scratched_urls)
-
-    
+        scl.merge_cover(file_name)
 
 
 if __name__ == '__main__' :
