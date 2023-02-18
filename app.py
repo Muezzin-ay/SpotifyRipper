@@ -43,5 +43,6 @@ def main() :
 
 if __name__ == '__main__' :
     if check_settings_file() :
-        False
+        print("Please add your Login data!")
+        exit()
     main()
