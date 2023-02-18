@@ -33,7 +33,7 @@ class SpotifyApi():
                 track_df = pd.DataFrame(playlist_features, index=[0])
                 playlist_df = pd.concat([playlist_df, track_df], ignore_index=True)
             self.playlist_df = playlist_df
-
+            
     def format_output(self):
         youtube_search_strings = []
         song_objects = []
