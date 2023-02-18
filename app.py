@@ -25,7 +25,7 @@ def main() :
     sp_api = SpotifyApi(settings['api_client'], settings['api_secret'])
 
     album_creator = settings['spotify_username']
-    album_id = "3fuFrAI54IarzysyTPz9bj"
+    album_id = "0jZnctaVSmdfqtwdGGmhDO"
     sp_api.get_songs_from_playlist(album_creator, album_id)
 
     song_object_list = sp_api.format_output()
@@ -34,7 +34,8 @@ def main() :
 
     for song in song_object_list : #[:3]
         url = yt.search_song(song)
-        file_name = song.name.replace(' ', '_')
+        print(song)
+        file_name = f"{song.artist} - {song.name}"
 
         yt.download([url], file_name)
 
