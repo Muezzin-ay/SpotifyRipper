@@ -9,7 +9,12 @@ class YoutubeApi(yt_dlp.YoutubeDL) :
     def __init__(self) -> None:
         ydl_ops = {
             #'outtmpl':  f'/{TEMP_DIR}/{video_title}.mp4',
-            'format': 'bestvideo[width<=720]+bestaudio[ext=m4]/best'
+            'format': 'bestaudio/best',
+            'postprocessors': [{
+                'key': 'FFmpegExtractAudio',
+                'preferredcodec': 'mp3',
+                'preferredquality': '320',
+            }],
         }
         super().__init__(ydl_ops)
 
