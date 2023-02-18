@@ -1,6 +1,9 @@
+from modules.spotify import SpotifyApi
 
 def main() :
-    pass
+    sp_api = SpotifyApi()
+    sp_api.log_into_spotify_api()
+
 
 
 
