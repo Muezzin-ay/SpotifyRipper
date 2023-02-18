@@ -7,3 +7,7 @@
 /.cache
 /modules/*.mp4
 /modules/*.mp3
+/out
+/out/*.mp4
+/out/*.webm
+/out/*.mp3
