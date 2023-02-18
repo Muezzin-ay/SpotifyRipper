@@ -11,8 +11,9 @@ class SpotifyCoverLoader():
         pattern = r'loading="eager" src="([^ ]*)"'
 
         #do not know why, but it works; finds thumbnail url using regex
-        req = urllib.request.urlopen(album_url).read().decode('utf-8').encode('cp850','replace').decode('cp850')
-        thumbnail_url = re.findall(pattern,req)
+        html = urllib.request.urlopen(album_url).read()
+        html_source = html.decode('utf-8').encode('cp850','replace').decode('cp850')
+        thumbnail_url = re.findall(pattern, html_source)
 
         print(thumbnail_url)
         self.thumbnail_url = thumbnail_url[0]
