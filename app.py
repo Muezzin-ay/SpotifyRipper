@@ -12,14 +12,12 @@ def main() :
     yt = YoutubeApi()
     scratched_urls = []
 
-    for song in song_object_list[4:] :
+    for song in song_object_list[:4] :
         url = yt.search_song(song)
         scratched_urls.append(url)
 
     print(scratched_urls)
     yt.download(scratched_urls)
-
-
 
 
 if __name__ == '__main__' :

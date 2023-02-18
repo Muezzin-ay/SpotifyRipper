@@ -51,7 +51,7 @@ class YoutubeApi(yt_dlp.YoutubeDL) :
                     continue
 
                 if song.check_duration(duration) :
-                    print(f"[YOUTUBE-API] Using video number {video_counter} ({url}).")
+                    print(f"[YOUTUBE-API] Using video number {video_counter} ( {url} ).")
                     return url
 
         except Exception as err:
