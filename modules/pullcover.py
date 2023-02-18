@@ -1,5 +1,6 @@
 import urllib.request
-import mutagen
+from mutagen.id3 import ID3, APIC, error
+from mutagen.mp3 import MP3
 import re
 
 class SpotifyCoverLoader():
@@ -18,8 +19,20 @@ class SpotifyCoverLoader():
 
     def download_cover(self):
         print(self.thumbnail_url)
-        urllib.request.urlretrieve(self.thumbnail_url, f"./out/albumcover.jpg")
+        urllib.request.urlretrieve(self.thumbnail_url, "./out/albumcover.jpg")
 
-    def merge_cover_mp3(self):
-        pass
+    def merge_cover_mp3(self, song):
+        audio_file = f"audio.mp3"
+        picture_file = "./out/albumcover.jpg"
+
+        audio = MP3(audio_file, ID3=ID3)
+        try:
+            audio.add_tags()
+        except error:
+            pass
+
+        picture_data = open(picture_file,'rb').read()
+        audio.tags.add(APIC(mime='image/png', type=3, desc=u'Cover', data=picture_data))
+        audio.save(audio_file)
+        
         
