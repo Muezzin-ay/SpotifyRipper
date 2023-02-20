@@ -1,10 +1,11 @@
 
-import urllib.request
 from mutagen.id3 import ID3, APIC, error
 from mutagen.mp3 import MP3
 from mutagen.easyid3 import EasyID3
+import urllib.request
 import re
 import os
+
 from modules.str_tools import clean_name
 
 

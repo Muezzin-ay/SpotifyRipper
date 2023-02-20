@@ -13,9 +13,6 @@ def clean_name(name) :
         .replace("<", "")\
         .replace(">", "")\
         .replace("/", "")
-
-                
-        
+           
     new_name = urllib.parse.quote_plus(new_name)
-
     return new_name
