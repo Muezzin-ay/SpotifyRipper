@@ -4,3 +4,7 @@ This Project enables you to automatically download your Spotify Tracks from a pl
 Additionally the original Spotify Cover is added on top of your .mp3 track to ensure that you have the same feel like you would on Spotify.
 
 This is made possible by our modules that download your Spotify Playlist based on the highest quality YouTube files (320 kbit/s)
+
+<a href = "https://github.com/Tanu-N-Prabhu/Python/graphs/contributors">
+  <img src = "https://contrib.rocks/image?repo = GitHub_username/repository_name"/>
+</a>
