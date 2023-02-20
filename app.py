@@ -1,11 +1,12 @@
 
 import sys
+import threading
+import queue
 
 from modules.spotify import SpotifyApi
 from modules.yt_api import YoutubeApi
 from modules.pullcover import SpotifyCoverLoader
 from modules.name_tools import NameTools
-
 from modules.config_handler import *
 
 
@@ -18,18 +19,33 @@ def main() :
     sp_api.get_songs_from_playlist(album_creator, album_id)
 
     song_object_list = sp_api.format_output()
+    handle_playlist(song_object_list)        
 
-    for song in song_object_list :
 
-        file_name = NameTools.gen_file_name(song.name, song.artist)
-        yt = YoutubeApi()
-        url = yt.search_song(song)
-        yt.download([url], file_name)
+def handle_playlist(song_object_list) :
+    song_queue = queue.Queue()
+    [song_queue.put(song) for song in song_object_list]
 
-        scl = SpotifyCoverLoader(song.album_url)
-        scl.download_cover(song.name)
-        scl.merge_cover(file_name,song.artist,song.name)
+    while True :
+        if threading.active_count() < 10 : #10 active threadss
+            song = song_queue.get()
+            t = threading.Thread(target=download_song, args=[song])
+            t.start()
 
+        if song_queue.empty() :
+            break
+
+
+def download_song(song) :
+    file_name = NameTools.gen_file_name(song)
+
+    yt = YoutubeApi()
+    url = yt.search_song(song)
+    yt.download([url], file_name)
+
+    scl = SpotifyCoverLoader(song.album_url)
+    scl.download_cover(file_name)
+    scl.merge_cover(file_name, song.artist)
 
 
 

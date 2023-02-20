@@ -17,7 +17,6 @@ class YoutubeApi() :
 
         video_urls = []
         try :
-            print(search_url)
             html = urllib.request.urlopen(search_url)
             html_source = html.read().decode()
             video_urls = self.scratch.gen_video_urls(html_source)

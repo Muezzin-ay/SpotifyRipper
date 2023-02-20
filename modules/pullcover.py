@@ -1,5 +1,5 @@
 
-from mutagen.id3 import ID3, APIC, error
+from mutagen.id3 import ID3, APIC
 from mutagen.mp3 import MP3
 from mutagen.easyid3 import EasyID3
 import urllib.request
@@ -18,16 +18,14 @@ class SpotifyCoverLoader():
         html_source = html.decode('utf-8').encode('cp850','replace').decode('cp850')
         thumbnail_url = re.findall(pattern, html_source)
 
-        print(thumbnail_url)
         self.thumbnail_url = thumbnail_url[0]
 
-    def download_cover(self,song_title):
-        print(self.thumbnail_url)
-        urllib.request.urlretrieve(self.thumbnail_url, f"./out/{song_title}albumcover.jpg")
+    def download_cover(self, file_name):
+        urllib.request.urlretrieve(self.thumbnail_url, f"./out/{file_name}_albumcover.jpg")
 
-    def merge_cover(self, file_name, artist, title):
+    def merge_cover(self, file_name, artist):
         audio_file = f"./out/{file_name}.mp3"
-        picture_file = f"./out/{title}albumcover.jpg"
+        picture_file = f"./out/{file_name}_albumcover.jpg"
 
         audio = MP3(audio_file, ID3=ID3)
         try:
