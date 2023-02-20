@@ -22,7 +22,7 @@ def clean_name(name):
 
 def gen_file_name(name, artist):
         new_name = name\
-        .replace(" ", "+")\
+        .replace(" ", " ")\
         .replace("ë", "e")\
         .replace("ä", "ae")\
         .replace("ü", "ue")\
@@ -32,7 +32,7 @@ def gen_file_name(name, artist):
         .replace(">", "")\
         .replace("/", "")\
         +artist\
-        .replace(" ", "+")\
+        .replace(" ", " ")\
         .replace("ë", "e")\
         .replace("ä", "ae")\
         .replace("ü", "ue")\

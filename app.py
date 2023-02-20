@@ -4,7 +4,7 @@ import sys
 from modules.spotify import SpotifyApi
 from modules.yt_api import YoutubeApi
 from modules.pullcover import SpotifyCoverLoader
-from modules.str_tools import gen_file_name
+from modules.name_tools import NameTools
 
 from modules.multiprocess import MultiprocessStart
 
@@ -35,7 +35,7 @@ def pull_spotify_info():
 
     return song_object_list
 
-def download_songs(song,thread_number):
+def download_songs(song):
     
 
     """
@@ -44,7 +44,9 @@ def download_songs(song,thread_number):
         print(song)
         file_name = gen_file_name(song.name, song.artist)
     """
-    file_name = gen_file_name(song.name, song.artist)
+    nt = NameTools()
+
+    file_name = nt.gen_file_name(song.name, song.artist)
     yt = YoutubeApi()
     url = yt.search_song(song)
     yt.download([url], file_name)
@@ -52,7 +54,7 @@ def download_songs(song,thread_number):
     scl = SpotifyCoverLoader(song.album_url)
     # needs to pass song.name to add to albumcover.jpg so the system does not have problems bc several files are calles albumcover.jpg
     scl.download_cover(song.name)
-    scl.merge_cover(file_name,song.artist)
+    scl.merge_cover(file_name,song.artist,song.name)
 
 def test(a):
 
