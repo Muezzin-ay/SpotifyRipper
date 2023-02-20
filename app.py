@@ -10,21 +10,9 @@ from modules.multiprocess import MultiprocessStart
 
 from modules.config_handler import *
 
-def check_settings_file() :
-    if not os.path.isfile('./config.json') :
-        with open('./config.json', 'w') as file:
-            file.write('{"api_client" : "", "api_secret" : "", "spotify_username" : ""}')
-            return False
-    return True
-
-def load_settings() :
-    with open('./config.json') as file:
-        settings = json.load(file)
-        file.close()
-    return settings
 
 def pull_spotify_info():
-    settings = load_settings()
+    settings = ConfigHandler.load_settings()
     sp_api = SpotifyApi(settings['api_client'], settings['api_secret'])
 
     album_creator = settings['spotify_username']
