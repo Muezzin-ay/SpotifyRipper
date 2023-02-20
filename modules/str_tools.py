@@ -18,4 +18,6 @@ def clean_name(name) :
     return new_name
 
 def gen_file_name(song, artist) :
-    return f'{song} - {artist}'
+    file_name = f'{song} - {artist}'
+    file_name.replace("/", "")
+    return file_name
