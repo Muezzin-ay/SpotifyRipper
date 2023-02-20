@@ -1,25 +1,11 @@
 
-import json
-import os
 import sys
 
 from modules.spotify import SpotifyApi
 from modules.yt_api import YoutubeApi
 from modules.pullcover import SpotifyCoverLoader
 from modules.str_tools import gen_file_name
-
-def check_settings_file() :
-    if not os.path.isfile('./config.json') :
-        with open('./config.json', 'w') as file:
-            file.write('{"api_client" : "", "api_secret" : "", "spotify_username" : "", "album_id" : ""}')
-            return False
-    return True
-
-def load_settings() :
-    with open('./config.json') as file:
-        settings = json.load(file)
-        file.close()
-    return settings
+from modules.config_handler import *
 
 
 def main() :
