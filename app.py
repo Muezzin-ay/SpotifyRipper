@@ -1,6 +1,5 @@
 
-import json
-import os
+import sys
 
 from modules.spotify import SpotifyApi
 from modules.yt_api import YoutubeApi
@@ -71,7 +70,7 @@ def main() :
 
 
 if __name__ == '__main__' :
-    if not check_settings_file() :
+    if not ConfigHandler.check_settings_file() :
         print("Please add your Login data!")
-        exit()
+        sys.exit(0)
     main()
