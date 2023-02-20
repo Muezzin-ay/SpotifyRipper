@@ -6,8 +6,6 @@ import urllib.request
 import re
 import os
 
-from modules.name_tools import NameTools
-
 
 class SpotifyCoverLoader():
     def __init__(self, album_url) -> None:
