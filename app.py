@@ -5,6 +5,7 @@ import os
 from modules.spotify import SpotifyApi
 from modules.yt_api import YoutubeApi
 from modules.pullcover import SpotifyCoverLoader
+from modules.str_tools import gen_file_name
 
 def check_settings_file() :
     if not os.path.isfile('./config.json') :
@@ -35,7 +36,7 @@ def main() :
     for song in song_object_list : #[:3]
         url = yt.search_song(song)
         print(song)
-        file_name = f"{song.artist} - {song.name}"
+        file_name = gen_file_name(song.name, song.artist)
 
         yt.download([url], file_name)
 

@@ -26,19 +26,14 @@ class SpotifyCoverLoader():
         urllib.request.urlretrieve(self.thumbnail_url, "./out/albumcover.jpg")
 
     def merge_cover(self, file_name, artist):
-        clean_file_name = file_name.replace(':','#')
-        if not '(' in clean_file_name and not ')' in clean_file_name :
-            clean_file_name = clean_name(file_name)
-
-        audio_file = f"./out/{clean_file_name}.mp3"
+        audio_file = f"./out/{file_name}.mp3"
         picture_file = "./out/albumcover.jpg"
 
         audio = MP3(audio_file, ID3=ID3)
         try:
             audio.add_tags()
         except Exception as err:
-            print("Error: Could not add Tags to Audio File!")
-            return
+            print("[CONVERTER] Failure: Maybe no tags where added to the song!")
 
         picture_data = open(picture_file,'rb').read()
         audio.tags.add(APIC(mime='image/png', type=3, desc=u'Cover', data=picture_data))
