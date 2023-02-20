@@ -5,6 +5,6 @@ Additionally the original Spotify Cover is added on top of your .mp3 track to en
 
 This is made possible by our modules that download your Spotify Playlist based on the highest quality YouTube files (320 kbit/s)
 
-<a href = "https://github.com/Tanu-N-Prabhu/Python/graphs/contributors">
-  <img src = "https://contrib.rocks/image?repo = Muezzin-ay/SpotifyRipper"/>
+<a href="https://github.com/Muezzin-ay/SpotifyRipper/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Muezzin-ay/SpotifyRipper" />
 </a>
