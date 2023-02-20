@@ -64,7 +64,7 @@ def main() :
 
     # Searches Youtube to find the matching song, downloads it and adds the specific cover
     mp = MultiprocessStart()
-    mp.start_multiple_instances(amount_of_threads=6 ,target_function=download_songs,song_object_list=song_object_list)
+    mp.start_threaded_download(amount_of_threads=6 ,target_function=download_songs,song_object_list=song_object_list)
     #mp.start_multiple_instances(amount_of_threads=6,)
     #download_songs(song_object_list)
 
