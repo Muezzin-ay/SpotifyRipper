@@ -21,13 +21,13 @@ class SpotifyCoverLoader():
         print(thumbnail_url)
         self.thumbnail_url = thumbnail_url[0]
 
-    def download_cover(self):
+    def download_cover(self,song_title):
         print(self.thumbnail_url)
-        urllib.request.urlretrieve(self.thumbnail_url, "./out/albumcover.jpg")
+        urllib.request.urlretrieve(self.thumbnail_url, f"./out/{song_title}albumcover.jpg")
 
-    def merge_cover(self, file_name, artist):
+    def merge_cover(self, file_name, artist, title):
         audio_file = f"./out/{file_name}.mp3"
-        picture_file = "./out/albumcover.jpg"
+        picture_file = f"./out/{title}albumcover.jpg"
 
         audio = MP3(audio_file, ID3=ID3)
         try:
