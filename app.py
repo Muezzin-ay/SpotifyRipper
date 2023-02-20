@@ -8,6 +8,8 @@ from modules.str_tools import gen_file_name
 
 from modules.multiprocess import MultiprocessStart
 
+from modules.config_handler import *
+
 def check_settings_file() :
     if not os.path.isfile('./config.json') :
         with open('./config.json', 'w') as file:

@@ -2,7 +2,7 @@
 import urllib
 
 
-def clean_name(name) :
+def clean_name(name):
     new_name = name\
         .replace(" ", "+")\
         .replace("ë", "e")\
@@ -19,3 +19,29 @@ def clean_name(name) :
     new_name = urllib.parse.quote_plus(new_name)
 
     return new_name
+
+def gen_file_name(name, artist):
+        new_name = name\
+        .replace(" ", "+")\
+        .replace("ë", "e")\
+        .replace("ä", "ae")\
+        .replace("ü", "ue")\
+        .replace("ö", "oe")\
+        .replace(":", "")\
+        .replace("<", "")\
+        .replace(">", "")\
+        .replace("/", "")\
+        +artist\
+        .replace(" ", "+")\
+        .replace("ë", "e")\
+        .replace("ä", "ae")\
+        .replace("ü", "ue")\
+        .replace("ö", "oe")\
+        .replace(":", "")\
+        .replace("<", "")\
+        .replace(">", "")\
+        .replace("/", "")
+
+
+        return new_name
+
