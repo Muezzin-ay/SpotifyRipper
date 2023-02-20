@@ -25,21 +25,20 @@ class SpotifyCoverLoader():
         print(self.thumbnail_url)
         urllib.request.urlretrieve(self.thumbnail_url, "./out/albumcover.jpg")
 
-    def merge_cover(self, file_name,artist):
-        if ':' in file_name:
-            filename = file_name.replace(':','#')
-        elif '(' or ')' in file_name:
-            filename = file_name
-        else:
-            filename = clean_name(file_name)
-        audio_file = f"./out/{filename}.mp3"
+    def merge_cover(self, file_name, artist):
+        clean_file_name = file_name.replace(':','#')
+        if not '(' in clean_file_name and not ')' in clean_file_name :
+            clean_file_name = clean_name(file_name)
+
+        audio_file = f"./out/{clean_file_name}.mp3"
         picture_file = "./out/albumcover.jpg"
 
         audio = MP3(audio_file, ID3=ID3)
         try:
             audio.add_tags()
-        except error:
-            pass
+        except Exception as err:
+            print("Error: Could not add Tags to Audio File!")
+            return
 
         picture_data = open(picture_file,'rb').read()
         audio.tags.add(APIC(mime='image/png', type=3, desc=u'Cover', data=picture_data))
@@ -52,6 +51,4 @@ class SpotifyCoverLoader():
         self.delete_cover(picture_file)
 
     def delete_cover(self, picture_file) :
-        os.remove(picture_file)
-        
-        
+        os.remove(picture_file)   
