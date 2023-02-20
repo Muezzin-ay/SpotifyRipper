@@ -27,7 +27,7 @@ def handle_playlist(song_object_list) :
     [song_queue.put(song) for song in song_object_list]
 
     while True :
-        if threading.active_count() < 10 : #10 active threadss
+        if threading.active_count() < 10 : #10 active threads
             song = song_queue.get()
             t = threading.Thread(target=download_song, args=[song])
             t.start()
