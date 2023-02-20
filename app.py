@@ -11,7 +11,7 @@ from modules.str_tools import gen_file_name
 def check_settings_file() :
     if not os.path.isfile('./config.json') :
         with open('./config.json', 'w') as file:
-            file.write('{"api_client" : "", "api_secret" : "", "spotify_username" : ""}')
+            file.write('{"api_client" : "", "api_secret" : "", "spotify_username" : "", "album_id" : ""}')
             return False
     return True
 
