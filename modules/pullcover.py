@@ -6,7 +6,7 @@ import urllib.request
 import re
 import os
 
-from modules.str_tools import clean_name
+from modules.name_tools import NameTools
 
 
 class SpotifyCoverLoader():

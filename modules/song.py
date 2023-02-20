@@ -1,5 +1,5 @@
 
-from modules.str_tools import clean_name
+from modules.name_tools import NameTools
 
 
 class Song():
@@ -10,8 +10,8 @@ class Song():
         self.album_url = album_url
 
     def get_search_word(self) :
-        searchable_name = clean_name(self.name)
-        searchable_artist = clean_name(self.artist)
+        searchable_name = NameTools.clean_name(self.name)
+        searchable_artist = NameTools.clean_name(self.artist)
         search_name = f'{searchable_name}+{searchable_artist}'
         return search_name
     
