@@ -4,6 +4,7 @@ import re
 
 URL_PATTERN = r"watch\?v=(\S{11})"
 DURATION_PATTERN = r'<meta itemprop="duration" content="PT(\d+)M(\d+)S">'
+THUMBNAIL_URL_PATTERN = r'loading="eager" src="([^ ]*)"'
 
 
 class WebScratch :
@@ -28,5 +29,10 @@ class WebScratch :
             return None
         duration = int(duration_data[0]) * 60 + int(duration_data[1])
         return duration
+    
+    @staticmethod
+    def extract_thumbnail_url(html_source) :
+        thumbnail_urls = re.findall(THUMBNAIL_URL_PATTERN, html_source)
+        return thumbnail_urls[0]
     
     

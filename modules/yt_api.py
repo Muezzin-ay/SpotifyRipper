@@ -31,7 +31,7 @@ class YoutubeApi() :
 
                 html = urllib.request.urlopen(url)
                 html_source = html.read().decode()
-                duration =WebScratch.extract_duration(html_source)
+                duration = WebScratch.extract_duration(html_source)
 
                 if not duration : #if duration == None
                     continue

@@ -5,7 +5,7 @@ import queue
 
 from modules.spotify import SpotifyApi
 from modules.yt_api import YoutubeApi
-from modules.pullcover import SpotifyCoverLoader
+from modules.song_edit import SongEditor
 from modules.name_tools import NameTools
 from modules.config_handler import *
 
@@ -44,9 +44,9 @@ def download_song(song) :
     url = yt.search_song(song)
     yt.download([url], file_name)
 
-    scl = SpotifyCoverLoader(song.album_url)
-    scl.download_cover(file_name)
-    scl.merge_cover(file_name, song.artist)
+    editor = SongEditor(song.album_url)
+    editor.download_cover(file_name)
+    editor.merge_cover(file_name, song.artist)
 
 
 

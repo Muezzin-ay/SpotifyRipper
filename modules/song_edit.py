@@ -3,20 +3,17 @@ from mutagen.id3 import ID3, APIC
 from mutagen.mp3 import MP3
 from mutagen.easyid3 import EasyID3
 import urllib.request
-import re
 import os
 
+from web_scratch import WebScratch
 
-class SpotifyCoverLoader():
+
+class SongEditor():
     def __init__(self, album_url) -> None:
-        pattern = r'loading="eager" src="([^ ]*)"'
-
-        #do not know why, but it works; finds thumbnail url using regex
         html = urllib.request.urlopen(album_url).read()
+        #do not know why, but it works; finds thumbnail url using regex
         html_source = html.decode('utf-8').encode('cp850','replace').decode('cp850')
-        thumbnail_url = re.findall(pattern, html_source)
-
-        self.thumbnail_url = thumbnail_url[0]
+        self.thumbnail_url = WebScratch.extract_thumbnail_url
 
     def download_cover(self, file_name):
         urllib.request.urlretrieve(self.thumbnail_url, f"./out/{file_name}_albumcover.jpg")
