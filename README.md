@@ -5,7 +5,7 @@ This Project enables you to automatically download your Spotify Tracks from a pl
 **Version: r1.0.0**
 
 
-## Install
+## Installation
 
 [Python](https://www.python.org/) version 3.x is required.
 
