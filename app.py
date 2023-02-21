@@ -33,6 +33,7 @@ def handle_playlist(song_object_list) :
             t.start()
 
         if song_queue.empty() :
+            print("[MAIN] Started all Threads!")
             break
 
 

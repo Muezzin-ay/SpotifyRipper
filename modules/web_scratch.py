@@ -7,10 +7,9 @@ DURATION_PATTERN = r'<meta itemprop="duration" content="PT(\d+)M(\d+)S">'
 
 
 class WebScratch :
-    def __init__(self) -> None:
-        pass
 
-    def gen_video_urls(self, html_source) :
+    @staticmethod
+    def gen_video_urls(html_source) :
         video_urls = []
         try :
             video_ids = re.findall(URL_PATTERN, html_source)
@@ -21,7 +20,8 @@ class WebScratch :
         except :
             return None
         
-    def extract_duration(self, html_source) :
+    @staticmethod    
+    def extract_duration(html_source) :
         try :
             duration_data = re.findall(DURATION_PATTERN, html_source)[0]
         except :

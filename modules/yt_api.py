@@ -8,8 +8,6 @@ from modules.web_scratch import WebScratch
 OUTPUT_LOCATION = './out/'
 
 class YoutubeApi() :
-    def __init__(self) :
-        self.scratch = WebScratch()
 
     def search_song(self, song) :
         search_word = song.get_search_word()
@@ -19,7 +17,7 @@ class YoutubeApi() :
         try :
             html = urllib.request.urlopen(search_url)
             html_source = html.read().decode()
-            video_urls = self.scratch.gen_video_urls(html_source)
+            video_urls = WebScratch.gen_video_urls(html_source)
         except UnicodeEncodeError as err:
             return err
         
@@ -33,7 +31,7 @@ class YoutubeApi() :
 
                 html = urllib.request.urlopen(url)
                 html_source = html.read().decode()
-                duration = self.scratch.extract_duration(html_source)
+                duration =WebScratch.extract_duration(html_source)
 
                 if not duration : #if duration == None
                     continue
