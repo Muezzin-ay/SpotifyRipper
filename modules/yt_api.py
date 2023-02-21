@@ -45,9 +45,9 @@ class YoutubeApi() :
 
         return urls[0]
         
-    def download(self, urls, name) :
+    def download(self, urls, song) :
         ydl_ops = {
-            'outtmpl': OUTPUT_LOCATION + name,
+            'outtmpl': OUTPUT_LOCATION + song.get_file_name(),
             'format': 'bestaudio/best',
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',

@@ -6,7 +6,6 @@ import queue
 from modules.spotify import SpotifyApi
 from modules.yt_api import YoutubeApi
 from modules.song_edit import SongEditor
-from modules.name_tools import NameTools
 from modules.config_handler import *
 
 
@@ -38,15 +37,14 @@ def handle_playlist(song_object_list) :
 
 
 def download_song(song) :
-    file_name = NameTools.gen_file_name(song)
-
     yt = YoutubeApi()
     url = yt.search_song(song)
-    yt.download([url], file_name)
+    yt.download([url], song)
 
-    editor = SongEditor(song.album_url)
-    editor.download_cover(file_name)
-    editor.merge_cover(file_name, song.artist)
+    editor = SongEditor(song)
+    editor.download_cover()
+    editor.merge_cover()
+    editor.add_audio_tags()
 
 
 
