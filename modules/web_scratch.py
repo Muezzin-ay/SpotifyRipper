@@ -1,11 +1,13 @@
 
 import re
 
+from modules.name_tools import NameTools
+
 
 URL_PATTERN = r"watch\?v=(\S{11})"
 DURATION_PATTERN = r'<meta itemprop="duration" content="PT(\d+)M(\d+)S">'
+VIDEO_NAME_PATTERN = r'<title>(.*)</title><meta'
 THUMBNAIL_URL_PATTERN = r'loading="eager" src="([^ ]*)"'
-
 
 class WebScratch :
 
@@ -29,6 +31,32 @@ class WebScratch :
             return None
         duration = int(duration_data[0]) * 60 + int(duration_data[1])
         return duration
+    
+    @staticmethod
+    def extract_video_name(html_source) :
+        try :
+            name = re.findall(VIDEO_NAME_PATTERN, html_source)[0]
+            return NameTools.gen_comparable_name(name)
+        except :
+            return None
+    
+    @staticmethod
+    def verify_video(html_source, song) :
+        duration = WebScratch.extract_duration(html_source)
+        if not duration :
+            return False
+        
+        keyword_name = NameTools.gen_comparable_name(song.name)
+        keyword_video_name = WebScratch.extract_video_name(html_source)
+
+        if song.check_duration(duration) :
+            if (keyword_name not in keyword_video_name) :
+                print("[Scratch] Titeltest nicht bestanden!")
+            else :
+                print("[Scratch] Titeltest bestanden!")
+            return True
+        
+        return False
     
     @staticmethod
     def extract_thumbnail_url(html_source) :

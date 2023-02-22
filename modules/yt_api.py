@@ -25,19 +25,12 @@ class YoutubeApi() :
         
     def choose_url(self, urls, song) :
         try :
-            video_counter = 0
-            for url in urls :
-                video_counter += 1
-
+            for video_counter, url in enumerate(urls) :
                 html = urllib.request.urlopen(url)
                 html_source = html.read().decode()
-                duration = WebScratch.extract_duration(html_source)
 
-                if not duration : #if duration == None
-                    continue
-
-                if song.check_duration(duration) :
-                    print(f"[YOUTUBE-API] Using video number {video_counter} ( {url} ).")
+                if WebScratch.verify_video(html_source, song) :
+                    print(f"[YOUTUBE-API] Using video number {video_counter+1} ( {url} ).")
                     return url
 
         except Exception as err:
