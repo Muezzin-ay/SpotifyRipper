@@ -2,7 +2,7 @@
 
 This Project enables you to automatically download your Spotify Tracks from a playlist of your choice in 320 kbit/s quality. Additionally the original Spotify Cover is added on top of your .mp3 track to ensure that you have the same feel like you would on Spotify.
 
-**Version: r1.0.0**
+**Version: v1.0.0**
 
 
 ## Installation
