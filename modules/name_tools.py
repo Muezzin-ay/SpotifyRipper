@@ -22,6 +22,8 @@ class NameTools:
 
     @staticmethod
     def gen_file_name(song) :
-        file_name = f'{song.artist} - {song.name}'
-        file_name.replace("/", "")
+        file_name = f'{song.artist} - {song.name}'\
+            .replace("/", "")\
+            .replace("\\", "")
+        
         return file_name
