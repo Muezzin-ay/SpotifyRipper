@@ -51,6 +51,7 @@ def test(a):
 def main() :
     # Pulls info from spotify using the spotify api
     song_object_list = pull_spotify_info()
+    print(song_object_list)
 
     # Searches Youtube to find the matching song, downloads it and adds the specific cover
     mp = MultiprocessStart()
