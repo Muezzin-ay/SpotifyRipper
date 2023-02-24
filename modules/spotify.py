@@ -14,27 +14,26 @@ class SpotifyApi():
         self.playlist_attributes_list = ["artist", "album", "track_name", "track_id", "danceability", "energy", "key", "loudness",
                               "mode", "speechiness", "instrumentalness", "liveness", "valence", "tempo", "duration_ms",
                               "time_signature"]
-        
     
 
-    def get_songs_from_playlist(self,playlist_artist,playlist_id):
-            client_credentials_manager = SpotifyClientCredentials(client_id=self.client_id, client_secret=self.secret_id)
-            sp = spotipy.Spotify(client_credentials_manager = client_credentials_manager)
-            playlist_df = pd.DataFrame(columns=self.playlist_attributes_list)
-            playlist = sp.user_playlist_tracks(playlist_artist, playlist_id)["items"]
-            for track in playlist:
-                playlist_features = {}
-                playlist_features["artist"] = track["track"]["album"]["artists"][0]["name"]
-                playlist_features["album"] = track["track"]["album"]["name"]
-                playlist_features["track_name"] = track["track"]["name"]
-                playlist_features["track_id"] = track["track"]["id"]
+    def get_songs_from_playlist(self, playlist_artist, playlist_id):
+        client_credentials_manager = SpotifyClientCredentials(client_id=self.client_id, client_secret=self.secret_id)
+        sp = spotipy.Spotify(client_credentials_manager = client_credentials_manager)
+        playlist_df = pd.DataFrame(columns=self.playlist_attributes_list)
+        playlist = sp.user_playlist_tracks(playlist_artist, playlist_id)["items"]
+        for track in playlist:
+            playlist_features = {}
+            playlist_features["artist"] = track["track"]["album"]["artists"][0]["name"]
+            playlist_features["album"] = track["track"]["album"]["name"]
+            playlist_features["track_name"] = track["track"]["name"]
+            playlist_features["track_id"] = track["track"]["id"]
 
-                audio_features = sp.audio_features(playlist_features["track_id"])[0]
-                for feature in self.playlist_attributes_list[4:]:
-                    playlist_features[feature] = audio_features[feature]
+            audio_features = sp.audio_features(playlist_features["track_id"])[0]
+            for feature in self.playlist_attributes_list[4:]:
+                playlist_features[feature] = audio_features[feature]
 
-                track_df = pd.DataFrame(playlist_features, index=[0])
-                playlist_df = pd.concat([playlist_df, track_df], ignore_index=True)
+            track_df = pd.DataFrame(playlist_features, index=[0])
+            playlist_df = pd.concat([playlist_df, track_df], ignore_index=True)
             self.playlist_df = playlist_df
 
     def format_output(self):

@@ -19,7 +19,7 @@ def main() :
 
     song_object_list = sp_api.format_output()
     handle_playlist(song_object_list)        
-
+    
 
 def handle_playlist(song_object_list) :
     song_queue = queue.Queue()
