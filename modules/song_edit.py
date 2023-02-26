@@ -31,7 +31,8 @@ class SongEditor():
         try:
             audio.add_tags()
         except Exception as err:
-            print("[CONVERTER] Failure: Maybe no tags where added to the song!")
+            pass #Supressed error
+            #print("[CONVERTER] Failure: Maybe no tags where added to the song!")
 
         picture_data = open(self.picture_file,'rb').read()
         audio.tags.add(APIC(mime='image/png', type=3, desc=u'Cover', data=picture_data))
