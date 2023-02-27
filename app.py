@@ -49,7 +49,6 @@ def revise_song(song, download_thread) :
 
 
 def download_song(song) :
-    print("Starting Downloading!")
     yt = YoutubeApi(OUTPUT_LOCATION)
     url = yt.search_song(song)
     yt.download([url], song)
