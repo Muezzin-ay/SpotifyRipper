@@ -9,6 +9,7 @@ DURATION_PATTERN = r'<meta itemprop="duration" content="PT(\d+)M(\d+)S">'
 VIDEO_NAME_PATTERN = r'<title>(.*)</title><meta'
 THUMBNAIL_URL_PATTERN = r'loading="eager" src="([^ ]*)"'
 
+
 class WebScratch :
 
     @staticmethod
