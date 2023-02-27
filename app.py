@@ -1,7 +1,6 @@
 
 import sys
 import threading
-import queue
 
 from modules.spotify import SpotifyApi
 from modules.yt_api import YoutubeApi
@@ -21,14 +20,11 @@ def main() :
     album_id = settings['album_id']
     sp_api.get_songs_from_playlist(album_creator, album_id)
 
-    song_object_list = sp_api.format_output()
-    handle_playlist(song_object_list)        
+    song_queue = sp_api.format_output()
+    handle_playlist(song_queue)        
     
 
-def handle_playlist(song_object_list) :
-    song_queue = queue.Queue()
-    [song_queue.put(song) for song in song_object_list]
-
+def handle_playlist(song_queue) :
     while True :
         if threading.active_count() < 10 : #10 active threads
             song = song_queue.get()

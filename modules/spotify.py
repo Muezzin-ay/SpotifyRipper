@@ -2,6 +2,7 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import pandas as pd
+import queue
 
 from modules.song import Song
 
@@ -38,7 +39,7 @@ class SpotifyApi():
 
     def format_output(self):
         youtube_search_strings = []
-        song_objects = []
+        song_queue = queue.Queue()
         for counter in range(len(self.playlist_df)):
             artist_name = self.playlist_df["artist"][counter]
             song_name = self.playlist_df["track_name"][counter]
@@ -46,8 +47,7 @@ class SpotifyApi():
             song_duration = int(self.playlist_df["duration_ms"][counter]/1000)
             youtube_search_strings.append(f'{artist_name} {song_name}')
 
-            song_objects.append(Song(artist_name,song_name,song_duration,album_url))
+            song = Song(artist_name,song_name,song_duration,album_url)
+            song_queue.put(song)
 
-        return song_objects
-
-    
+        return song_queue
