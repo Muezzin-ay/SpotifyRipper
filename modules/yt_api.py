@@ -48,6 +48,7 @@ class YoutubeApi :
                 'preferredcodec': 'mp3',
                 'preferredquality': '320',
             }],
+            'proxy' : ''
         }
         dlp = yt_dlp.YoutubeDL(ydl_ops)
         dlp.download(urls)
