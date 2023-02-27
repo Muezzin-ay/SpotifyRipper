@@ -26,25 +26,33 @@ def main() :
 
 def handle_playlist(song_queue) :
     while True :
-        if threading.active_count() < 10 : #10 active threads
+        if threading.active_count() < 25 : #number of active threads
             song = song_queue.get()
-            t = threading.Thread(target=download_song, args=[song])
-            t.start()
+
+            download_thread = threading.Thread(target=download_song, args=[song])
+            download_thread.start()
+            threading.Thread(target=revise_song, args=[song, download_thread]).start()
 
         if song_queue.empty() :
             print("[MAIN] Started all Threads!")
             break
 
 
+def revise_song(song, download_thread) :
+    editor = SongEditor(song, OUTPUT_LOCATION)
+    editor.download_cover()
+
+    download_thread.join()
+
+    editor.merge_cover()
+    editor.add_audio_tags()
+
+
 def download_song(song) :
+    print("Starting Downloading!")
     yt = YoutubeApi(OUTPUT_LOCATION)
     url = yt.search_song(song)
     yt.download([url], song)
-
-    editor = SongEditor(song, OUTPUT_LOCATION)
-    editor.download_cover()
-    editor.merge_cover()
-    editor.add_audio_tags()
 
 
 
