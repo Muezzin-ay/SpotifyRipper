@@ -9,6 +9,10 @@ from modules.song_edit import SongEditor
 from modules.config_handler import *
 
 
+
+OUTPUT_LOCATION = './out/'
+
+
 def main() :
     settings = ConfigHandler.load_settings()
     sp_api = SpotifyApi(settings['api_client'], settings['api_secret'])
@@ -37,11 +41,11 @@ def handle_playlist(song_object_list) :
 
 
 def download_song(song) :
-    yt = YoutubeApi()
+    yt = YoutubeApi(OUTPUT_LOCATION)
     url = yt.search_song(song)
     yt.download([url], song)
 
-    editor = SongEditor(song)
+    editor = SongEditor(song, OUTPUT_LOCATION)
     editor.download_cover()
     editor.merge_cover()
     editor.add_audio_tags()

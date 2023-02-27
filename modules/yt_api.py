@@ -5,9 +5,10 @@ import yt_dlp
 from modules.web_scratch import WebScratch
 
 
-OUTPUT_LOCATION = './out/'
+class YoutubeApi :
 
-class YoutubeApi() :
+    def __init__(self, output_location) :
+        self.output_location = output_location
 
     def search_song(self, song) :
         search_word = song.get_search_word()
@@ -40,7 +41,7 @@ class YoutubeApi() :
         
     def download(self, urls, song) :
         ydl_ops = {
-            'outtmpl': OUTPUT_LOCATION + song.get_file_name(),
+            'outtmpl': self.output_location + song.get_file_name(),
             'format': 'bestaudio/best',
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',

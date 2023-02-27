@@ -9,11 +9,11 @@ from modules.web_scratch import WebScratch
 
 
 class SongEditor():
-    def __init__(self, song) -> None:
+    def __init__(self, song, output_location) -> None:
         self.song  = song
         file_name = song.get_file_name()
-        self.audio_file = f"./out/{file_name}.mp3"
-        self.picture_file = f"./out/{file_name}_albumcover.jpg"
+        self.audio_file = f"{output_location}{file_name}.mp3"
+        self.picture_file = f"{output_location}{file_name}_albumcover.jpg"
 
         self.load_thumbnail_url()
 
