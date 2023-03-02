@@ -52,7 +52,7 @@ class WebScratch :
 
         if song.check_duration(duration) :
             if (keyword_name not in keyword_video_name) :
-                print("[Scratch] Titeltest nicht bestanden, maybe the output is bad!")
+                print(f"[Scratch] Titeltest nicht bestanden, maybe the output is bad! Compared '{keyword_name}' and '{keyword_video_name}'")
             else :
                 print("[Scratch] Titeltest bestanden!")
             return True

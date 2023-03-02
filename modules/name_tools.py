@@ -1,6 +1,6 @@
 
 import urllib
-
+#import re
 
 class NameTools:
 
@@ -31,9 +31,14 @@ class NameTools:
     
     @staticmethod
     def gen_comparable_name(original_name) :
+        #name = re.sub("([\(\[]).*?([\)\]])", "\g<1>\g<2>", original_name)
         name = original_name\
             .lower()\
             .replace(" ", "")\
-            .replace("-", "")
+            .replace("-", "")\
+            .replace("'", "")\
+            .replace("’", "")
+            #.replace("(", "")\
+            #.replace(")", "")
         
         return name

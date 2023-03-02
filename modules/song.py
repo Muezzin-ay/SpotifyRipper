@@ -20,7 +20,7 @@ class Song():
         return self.file_name
     
     def __repr__(self) -> str:
-        return self.get_search_word()
+        return f"{self.name} from {self.artist} ({self.duration}s)"
     
     def check_duration(self, yt_duration) :
         #offset = abs(self.duration / yt_duration) #0.95 -> with Percentage

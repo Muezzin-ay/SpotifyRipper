@@ -15,7 +15,7 @@ class SongEditor():
         self.audio_file = f"{output_location}{file_name}.mp3"
         self.picture_file = f"{output_location}{file_name}_albumcover.jpg"
 
-        self.load_thumbnail_url()
+        #self.load_thumbnail_url()
 
     def load_thumbnail_url(self) :
         html = urllib.request.urlopen(self.song.album_url).read()
@@ -24,6 +24,7 @@ class SongEditor():
         self.thumbnail_url = WebScratch.extract_thumbnail_url(html_source)
 
     def download_cover(self):
+        self.thumbnail_url = self.song.album_url
         urllib.request.urlretrieve(self.thumbnail_url, self.picture_file)
 
     def merge_cover(self):

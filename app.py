@@ -12,17 +12,27 @@ from modules.config_handler import *
 OUTPUT_LOCATION = './out/'
 
 
-def main() :
+def main(argv) :
     settings = ConfigHandler.load_settings()
     sp_api = SpotifyApi(settings['api_client'], settings['api_secret'])
+    song = sp_api.search_for_song(" ".join(argv[1:]))
 
+    editor = SongEditor(song, OUTPUT_LOCATION)
+    editor.download_cover()
+    download_song(song)
+    editor.merge_cover()
+    editor.add_audio_tags()
+
+
+    '''
     album_creator = settings['spotify_username']
     album_id = settings['album_id']
     sp_api.get_songs_from_playlist(album_creator, album_id)
 
     song_queue = sp_api.format_output()
-    handle_playlist(song_queue)        
-    
+    handle_playlist(song_queue)
+    '''
+
 
 def handle_playlist(song_queue) :
     while True :
@@ -59,4 +69,4 @@ if __name__ == '__main__' :
     if not ConfigHandler.check_settings_file() :
         print("Please add your Login data!")
         sys.exit(0)
-    main()
+    main(sys.argv)
