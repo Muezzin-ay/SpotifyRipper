@@ -37,7 +37,7 @@ class SpotifyApi(spotipy.Spotify):
             playlist_df = pd.concat([playlist_df, track_df], ignore_index=True)
             self.playlist_df = playlist_df
 
-            self.format_output(song_queue)
+        self.format_output(song_queue)
 
     def format_output(self, song_queue):
         for counter in range(len(self.playlist_df)):
