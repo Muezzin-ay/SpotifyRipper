@@ -3,11 +3,11 @@ from modules.name_tools import NameTools
 
 
 class Song():
-    def __init__(self, artist, name, duration,album_url) :
+    def __init__(self, artist, name, duration, cover_url) :
         self.name = name
         self.artist = artist
         self.duration = duration
-        self.album_url = album_url
+        self.cover_url = cover_url
         self.file_name = NameTools.gen_file_name(self)
 
     def get_search_word(self) :

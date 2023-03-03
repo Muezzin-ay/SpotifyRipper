@@ -5,7 +5,6 @@ from mutagen.easyid3 import EasyID3
 import urllib.request
 import os
 
-from modules.web_scratch import WebScratch
 
 
 class SongEditor():
@@ -15,17 +14,9 @@ class SongEditor():
         self.audio_file = f"{output_location}{file_name}.mp3"
         self.picture_file = f"{output_location}{file_name}_albumcover.jpg"
 
-        #self.load_thumbnail_url()
-
-    def load_thumbnail_url(self) :
-        html = urllib.request.urlopen(self.song.album_url).read()
-        #do not know why, but it works; finds thumbnail url using regex
-        html_source = html.decode('utf-8').encode('cp850','replace').decode('cp850')
-        self.thumbnail_url = WebScratch.extract_thumbnail_url(html_source)
-
     def download_cover(self):
-        self.thumbnail_url = self.song.album_url
-        urllib.request.urlretrieve(self.thumbnail_url, self.picture_file)
+        cover_url = self.song.cover_url
+        urllib.request.urlretrieve(cover_url, self.picture_file)
 
     def merge_cover(self):
         audio = MP3(self.audio_file, ID3=ID3)
