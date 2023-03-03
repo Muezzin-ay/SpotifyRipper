@@ -9,7 +9,7 @@ This Project enables you to automatically download your Spotify Tracks from a pl
 
 [Python](https://www.python.org/) version 3.x is required.
 
-At first, install all requirements. You can also do this in a virtual environment.
+At first, install all requirements. You can also do this in a [virtual environment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/).
 ```console
 pip install -r requirements.txt
 ```
