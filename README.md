@@ -33,17 +33,27 @@ Before your can start, you have to deposit your [spotify access](https://develop
     "api_client" : "YOUR CLIENT",
     "api_secret" : "YOUR SECRET",
     "spotify_username" : "YOUR SPOTIFY USERNAME",
-    "album_id" : "YOUR ALBUM ID"
 }
 ```
 
-To download an Album from your Spotify account via Youtube, you also have to entry your Username and The ID of the Album.
-
-You can find the ID at the end of the URL when you open the playlist in the browser.
-
-To start the download run this again:
+To search a single song and download it, run this:
 
 ```console
-python app.py
+python app.py SONG NAME ARTIST
 ```
 
+To download an Album from your Spotify account via Youtube, you also have to look for the ID of the Album.
+You can find the ID at the end of the URL when you open the playlist in the browser.
+
+It's important that the album or playlist is connected to your Spotify account (add to libary).
+
+To start the download, run this again:
+
+```console
+python app.py -p YOUR ALBUM ID
+```
+
+## Contributors
+<a href="https://github.com/Muezzin-ay/SpotifyRipper/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Muezzin-ay/SpotifyRipper" />
+</a>
