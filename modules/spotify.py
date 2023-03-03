@@ -19,7 +19,7 @@ class SpotifyApi(Spotify):
     def get_songs_from_playlist(self, playlist_id, song_queue):
         playlist = self.user_playlist_tracks(self.sp_user_name, playlist_id)["items"]
         for song_data in playlist :
-            song = Song(song_data['tracks'])
+            song = Song(song_data['track'])
             song_queue.put(song)
     
 
