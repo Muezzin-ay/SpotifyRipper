@@ -45,13 +45,14 @@ class SpotifyApi(spotipy.Spotify):
             song_name = self.playlist_df["track_name"][counter]
             song_duration = int(self.playlist_df["duration_ms"][counter]/1000)
 
-            album_url= f'https://open.spotify.com/track/{self.playlist_df["track_id"][counter]}'
-            cover_url = self.load_thumbnail_url(album_url)
+            track_id = self.playlist_df["track_id"][counter]
+            track_data = self.track(track_id)
+            cover_url = track_data['album']['images'][0]['url']
 
             song = Song(artist_name, song_name, song_duration, cover_url)
             song_queue.put(song)
     
-    
+
     def search_for_song(self, search_words, song_queue) :
         search_res = self.search(search_words, type='track', limit=1)['tracks']['items'][0]
         song_name = search_res['name']
@@ -61,11 +62,3 @@ class SpotifyApi(spotipy.Spotify):
 
         song = Song(artist_name, song_name, song_duration, cover_url)
         song_queue.put(song)
-    
-
-    def load_thumbnail_url(self, album_url) :
-        html = urllib.request.urlopen(album_url).read()
-        #do not know why, but it works; finds thumbnail url using regex
-        html_source = html.decode('utf-8').encode('cp850','replace').decode('cp850')
-        cover_url = WebScratch.extract_thumbnail_url(html_source)
-        return cover_url

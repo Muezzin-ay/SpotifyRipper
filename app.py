@@ -1,7 +1,7 @@
 
+from queue import Queue
+from threading import Thread, active_count
 import sys
-import threading
-import queue
 
 from modules.spotify import SpotifyApi
 from modules.yt_api import YoutubeApi
@@ -17,10 +17,10 @@ NUMBER_OF_THREADS = 25
 class Ripper:
     def __init__(self, argv) :
         self.argv = argv
-        self.song_queue = queue.Queue()
+        self.song_queue = Queue()
         
         if not ConfigHandler.check_settings_file() :
-            print("[RIPPER] Please add your Login data!")
+            print("[MAIN] Please add your Login data!")
             sys.exit(0)
 
         settings = ConfigHandler.load_settings()
@@ -38,13 +38,14 @@ class Ripper:
 
 
     def handle_queue(self) :
+        print("[MAIN] Started handling...")
         while True :
-            if threading.active_count() < NUMBER_OF_THREADS : #number of allowed active threads
+            if active_count() < NUMBER_OF_THREADS : #number of allowed active threads
                 song = self.song_queue.get()
 
-                download_thread = threading.Thread(target=self.download_song, args=[song])
+                download_thread = Thread(target=self.download_song, args=[song])
                 download_thread.start()
-                threading.Thread(target=self.revise_song, args=[song, download_thread]).start()
+                Thread(target=self.revise_song, args=[song, download_thread]).start()
 
             if self.song_queue.empty() :
                 print("[MAIN] Started all Threads!")
