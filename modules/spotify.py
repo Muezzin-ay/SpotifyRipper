@@ -2,7 +2,6 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import pandas as pd
-import queue
 import urllib
 
 from modules.song import Song
@@ -20,7 +19,7 @@ class SpotifyApi(spotipy.Spotify):
                                 "mode", "speechiness", "instrumentalness", "liveness", "valence", "tempo", "duration_ms",
                                 "time_signature"]
 
-    def get_songs_from_playlist(self, playlist_id):
+    def get_songs_from_playlist(self, playlist_id, song_queue):
         playlist_df = pd.DataFrame(columns=self.playlist_attributes_list)
         playlist = self.user_playlist_tracks(self.sp_user_name, playlist_id)["items"]
         for track in playlist:
@@ -38,10 +37,9 @@ class SpotifyApi(spotipy.Spotify):
             playlist_df = pd.concat([playlist_df, track_df], ignore_index=True)
             self.playlist_df = playlist_df
 
-            return self.format_output()
+            self.format_output(song_queue)
 
-    def format_output(self):
-        song_queue = queue.Queue()
+    def format_output(self, song_queue):
         for counter in range(len(self.playlist_df)):
             artist_name = self.playlist_df["artist"][counter]
             song_name = self.playlist_df["track_name"][counter]
@@ -52,10 +50,9 @@ class SpotifyApi(spotipy.Spotify):
 
             song = Song(artist_name, song_name, song_duration, cover_url)
             song_queue.put(song)
-
-        return song_queue
     
-    def search_for_song(self, search_words) :
+    
+    def search_for_song(self, search_words, song_queue) :
         search_res = self.search(search_words, type='track', limit=1)['tracks']['items'][0]
         song_name = search_res['name']
         cover_url = search_res['album']['images'][0]['url']
@@ -63,10 +60,9 @@ class SpotifyApi(spotipy.Spotify):
         song_duration = int(search_res['duration_ms'] / 1000)
 
         song = Song(artist_name, song_name, song_duration, cover_url)
-        song_queue = queue.Queue()
         song_queue.put(song)
-        return song_queue
     
+
     def load_thumbnail_url(self, album_url) :
         html = urllib.request.urlopen(album_url).read()
         #do not know why, but it works; finds thumbnail url using regex

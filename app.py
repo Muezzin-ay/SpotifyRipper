@@ -1,6 +1,7 @@
 
 import sys
 import threading
+import queue
 
 from modules.spotify import SpotifyApi
 from modules.yt_api import YoutubeApi
@@ -10,12 +11,13 @@ from modules.config_handler import *
 
 
 OUTPUT_LOCATION = './out/'
+NUMBER_OF_THREADS = 25
 
 
 class Ripper:
     def __init__(self, argv) :
         self.argv = argv
-        self.keywords = ""
+        self.song_queue = queue.Queue()
         
         if not ConfigHandler.check_settings_file() :
             print("[RIPPER] Please add your Login data!")
@@ -25,28 +27,19 @@ class Ripper:
         self.spotify_api = SpotifyApi(settings['api_client'], settings['api_secret'], settings['spotify_username']) 
         self.run()
 
-
     def run(self) :
         if self.argv[1] == "-p" :
-            self.keywords = " ".join(self.argv[1:])
-            self.handle_spotify_album()
+            playlist_id = self.argv[2]
+            self.spotify_api.get_songs_from_playlist(playlist_id, self.song_queue)
         else :
-            self.keywords = " ".join(self.argv[2:])
-            self.handle_single_song()
-            
-
-    def handle_single_song(self) :
-        self.song_queue = self.spotify_api.search_for_song(self.keywords)
-        self.handle_queue()
-
-    def handle_spotify_album(self) :
-        self.song_queue = self.spotify_api.get_songs_from_playlist(self.keywords)
+            search_words = " ".join(self.argv[1:])
+            self.spotify_api.search_for_song(search_words, self.song_queue)
         self.handle_queue()
 
 
     def handle_queue(self) :
         while True :
-            if threading.active_count() < 25 : #number of active threads
+            if threading.active_count() < NUMBER_OF_THREADS : #number of allowed active threads
                 song = self.song_queue.get()
 
                 download_thread = threading.Thread(target=self.download_song, args=[song])
