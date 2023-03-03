@@ -1,18 +1,16 @@
 
-import spotipy
+from spotipy import Spotify
 from spotipy.oauth2 import SpotifyClientCredentials
-import pandas as pd
-import urllib
+from pandas import DataFrame, concat
 
 from modules.song import Song
-from modules.web_scratch import WebScratch
 
 
 
-class SpotifyApi(spotipy.Spotify):
+class SpotifyApi(Spotify):
     def __init__(self, client_id, secret_id, sp_user_name) -> None:
         client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=secret_id)
-        super().__init__(client_credentials_manager = client_credentials_manager)
+        super().__init__(client_credentials_manager=client_credentials_manager)
 
         self.sp_user_name = sp_user_name
         self.playlist_attributes_list = ["artist", "album", "track_name", "track_id", "danceability", "energy", "key", "loudness",
@@ -20,7 +18,7 @@ class SpotifyApi(spotipy.Spotify):
                                 "time_signature"]
 
     def get_songs_from_playlist(self, playlist_id, song_queue):
-        playlist_df = pd.DataFrame(columns=self.playlist_attributes_list)
+        playlist_df = DataFrame(columns=self.playlist_attributes_list)
         playlist = self.user_playlist_tracks(self.sp_user_name, playlist_id)["items"]
         for track in playlist:
             playlist_features = {}
@@ -33,8 +31,8 @@ class SpotifyApi(spotipy.Spotify):
             for feature in self.playlist_attributes_list[4:]:
                 playlist_features[feature] = audio_features[feature]
 
-            track_df = pd.DataFrame(playlist_features, index=[0])
-            playlist_df = pd.concat([playlist_df, track_df], ignore_index=True)
+            track_df = DataFrame(playlist_features, index=[0])
+            playlist_df = concat([playlist_df, track_df], ignore_index=True)
             self.playlist_df = playlist_df
 
         self.format_output(song_queue)

@@ -1,6 +1,6 @@
 
 import urllib.request
-import yt_dlp
+from yt_dlp import YoutubeDL
 
 from modules.web_scratch import WebScratch
 
@@ -51,5 +51,5 @@ class YoutubeApi :
             'proxy' : '',
             'user-agent' : 'Mozilla/5.0 (X11; Linux i686; rv:110.0) Gecko/20100101 Firefox/110.0'
         }
-        dlp = yt_dlp.YoutubeDL(ydl_ops)
+        dlp = YoutubeDL(ydl_ops)
         dlp.download(urls)

@@ -6,7 +6,7 @@ import sys
 from modules.spotify import SpotifyApi
 from modules.yt_api import YoutubeApi
 from modules.song_edit import SongEditor
-from modules.config_handler import *
+from modules.config_handler import ConfigHandler
 
 
 
