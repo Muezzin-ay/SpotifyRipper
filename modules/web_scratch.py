@@ -7,7 +7,6 @@ from modules.name_tools import NameTools
 URL_PATTERN = r"watch\?v=(\S{11})"
 DURATION_PATTERN = r'<meta itemprop="duration" content="PT(\d+)M(\d+)S">'
 VIDEO_NAME_PATTERN = r'<title>(.*)</title><meta'
-THUMBNAIL_URL_PATTERN = r'loading="eager" src="([^ ]*)"'
 
 
 class WebScratch :
@@ -52,16 +51,9 @@ class WebScratch :
 
         if song.check_duration(duration) :
             if (keyword_name not in keyword_video_name) :
-                print("[Scratch] Titeltest nicht bestanden, maybe the output is bad!")
+                print(f"[Scratch] Titeltest nicht bestanden, maybe the output is bad! Compared '{keyword_name}' and '{keyword_video_name}'")
             else :
                 print("[Scratch] Titeltest bestanden!")
             return True
         
         return False
-    
-    @staticmethod
-    def extract_thumbnail_url(html_source) :
-        thumbnail_urls = re.findall(THUMBNAIL_URL_PATTERN, html_source)
-        return thumbnail_urls[0]
-    
-    
